@@ -13,6 +13,7 @@
 #include <chrono>
 #include <stdexcept>
 #include <thread>
+#include <numeric>
 #include "caffe/util/io.hpp" // DecodeDatum, DecodeDatumNative
 #include "caffe/openpose/getLine.hpp"
 #include "caffe/openpose/layers/oPDataLayer.hpp"

@@ -443,15 +443,15 @@ const std::map<unsigned int, std::string> CAR_22_PARTS {
     {23, "Background"},
 };
 const std::map<unsigned int, std::string> PIG_5_PARTS {
-    {0, "Neck"},
-    {1, "R Ear"},
-    {2, "L Ear"},
-    {3, "Nose"},
-    {4, "Tail"},
-    {5, "Background"},
+    {0, ""},
+
 };
+
+
+
+
     // Auxiliary functions
-    const auto NUMBER_MODELS = 16; // How many are the same
+    const auto NUMBER_MODELS = 15; // How many are the same
     int poseModelToIndex(const PoseModel poseModel)
     {
         const auto numberBodyParts = getNumberBodyParts(poseModel);
@@ -469,8 +469,6 @@ const std::map<unsigned int, std::string> PIG_5_PARTS {
             return 11;
         else if (poseModel == PoseModel::COCO_25B_23 || poseModel == PoseModel::COCO_25B_17 || poseModel == PoseModel::MPII_25B_16 || poseModel == PoseModel::PT_25B_15)
             return 12;
-        else if (poseModel == PoseModel::PIG_5)
-            return 15;
         else if (numberBodyParts == 18)
             return 0;
         else if (numberBodyParts == 19)
@@ -499,10 +497,10 @@ const std::map<unsigned int, std::string> PIG_5_PARTS {
 
     // Parameters and functions to change if new PoseModel
     const std::array<int, (int)PoseModel::Size> NUMBER_BODY_PARTS{
-        18, 18, 19, 19, 59, 59, 59, 19, 19, 25, 25, 65, 12, 25, 25, 23, 23, 22, 19, 25,25,25,25, 95,95,95,95, 135,135,135,135,135,135,135, 5};
+        18, 18, 19, 19, 59, 59, 59, 19, 19, 25, 25, 65, 12, 25, 25, 23, 23, 22, 19, 25,25,25,25, 95,95,95,95, 135,135,135,135,135,135,135};
 
     const std::array<int, (int)PoseModel::Size> NUMBER_PARTS_LMDB{
-        17, 19, 17, 19, 59, 17, 59, 17, 17, 23, 17, 42, 14, 23, 17, 23, 17, 22, 17, 23,17,16,15, 23,17,16,70,  23, 17, 16, 21, 42, 70,135, 5};
+        17, 19, 17, 19, 59, 17, 59, 17, 17, 23, 17, 42, 14, 23, 17, 23, 17, 22, 17, 23,17,16,15, 23,17,16,70,  23, 17, 16, 21, 42, 70,135};
 
     const std::array<std::vector<std::vector<int>>, (int)PoseModel::Size> LMDB_TO_OPENPOSE_KEYPOINTS{
         std::vector<std::vector<int>>{
@@ -711,7 +709,6 @@ const std::map<unsigned int, std::string> PIG_5_PARTS {
             {113},{114},{115},{116},{117},{118},{119},{120},{121},{122},{123},{124},{125},{126},{127},{128},{129},{130},{131},{132}, // Mouth
             {133},{134} // Pupils
         },
-        std::vector<std::vector<int>>{ {0}, {1}, {2}, {3}, {4} }, // PIG_5
     };
 
     // Idea: Keypoint that is empty will be masked out (including the PAFs that use it)
@@ -896,7 +893,6 @@ const std::map<unsigned int, std::string> PIG_5_PARTS {
             {113},{114},{115},{116},{117},{118},{119},{120},{121},{122},{123},{124},{125},{126},{127},{128},{129},{130},{131},{132}, // Mouth
             {133},{134} // Pupils
         },
-        std::vector<std::vector<int>>{ {0}, {1}, {2}, {3}, {4} }, // PIG_5
     };
 
     std::pair<PoseModel,PoseCategory> flagsToPoseModel(const std::string& poseModeString)
@@ -976,9 +972,6 @@ const std::map<unsigned int, std::string> PIG_5_PARTS {
             return std::make_pair(PoseModel::CAR_12, PoseCategory::CAR);
         else if (poseModeString == "CAR_22")
             return std::make_pair(PoseModel::CAR_22, PoseCategory::CAR);
-        // Pig
-        else if (poseModeString == "PIG_5")
-            return std::make_pair(PoseModel::PIG_5, PoseCategory::PIG);
         // Unknown
         throw std::runtime_error{"String (" + poseModeString
                                  + ") does not correspond to any model (COCO_18, DOME_18, ...)"
@@ -1035,7 +1028,6 @@ const std::map<unsigned int, std::string> PIG_5_PARTS {
             {F135+48,F135+54},{F135+49,F135+53},{F135+50,F135+52},{F135+55,F135+59},{F135+56,F135+58},{F135+60,F135+64},{F135+61,F135+63},{F135+65,F135+67}, // Mouth
             {F135+68,F135+69} // Pupils
         },
-        std::vector<std::array<int,2>>{{1,2}} // PIG_5
     };
 
     const std::array<std::vector<int>, NUMBER_MODELS> LABEL_MAP_A{
@@ -1124,11 +1116,6 @@ const std::map<unsigned int, std::string> PIG_5_PARTS {
                F135+48,F135+54,F135+60,F135+61,F135+62,F135+63,F135+64,F135+65,F135+66, // Outer-Inner + Inner Mouth (+1)
                F135+36,F135+39,F135+42,F135+45, // Eyes-Pupils (+2)
         },
-        std::vector<int>{               // PIG_5
-            // Tail     Neck    Head
-               4,      /* 0, */     1,3,2 },
-            // // Body     Head
-            // 4,0,         0,1, 0,2, 0,3 },
     };
 
     const std::array<std::vector<int>, NUMBER_MODELS> LABEL_MAP_B{
@@ -1217,11 +1204,6 @@ const std::map<unsigned int, std::string> PIG_5_PARTS {
                F135+60,F135+64,F135+61,F135+62,F135+63,F135+64,F135+65,F135+66,F135+67, // Outer-Inner + Inner Mouth (+1)
                F135+68,F135+68,F135+69,F135+69, // Eyes-Pupils (+2)
         },
-        std::vector<int>{               // PIG_5
-            // Tail     Neck    Head
-               4,       0,      1,3,2 },
-            // // Body     Head
-            // 4,0,         0,1, 0,2, 0,3 },
     };
 
     const auto rat = 5.75f/7.f;
@@ -1254,7 +1236,6 @@ const std::map<unsigned int, std::string> PIG_5_PARTS {
             rat,rat,rat,rat,rat,rat,rat,rat,rat,rat,rat,rat,rat,rat,rat,rat,rat,rat,rat,rat,    // Mouth
             rat,rat                                                                             // Pupils
         },
-        std::vector<float>(5, 1.f)                         // PIG_5      
     };
 
     const std::array<std::vector<int>, NUMBER_MODELS> TAF_MAP_A{
@@ -1282,7 +1263,6 @@ const std::map<unsigned int, std::string> PIG_5_PARTS {
         POSE_BODY_25B_BODY_PARTS, // 25B (COCO_25B_23, COCO_25B_17, MPII_25B_16)
         POSE_BODY_95_BODY_PARTS, // 95 (COCO_95_23, COCO_95_17, MPII_95_16, FACE_95_70)
         POSE_BODY_135_BODY_PARTS, // 135 (COCO_135_23, COCO_135_17, MPII_135_16, HAND_135_70, FACE_135_70)
-        PIG_5_PARTS, // PIG_5
     };
 
     const std::array<std::vector<float>, (int)PoseModel::Size> DISTANCE_AVERAGE{
@@ -1360,7 +1340,6 @@ const std::map<unsigned int, std::string> PIG_5_PARTS {
         std::vector<float>{},        std::vector<float>{},        std::vector<float>{},        std::vector<float>{},
         // COCO + MPII + Foot + Hands + Face
         std::vector<float>{},        std::vector<float>{},        std::vector<float>{},        std::vector<float>{},        std::vector<float>{},        std::vector<float>{},        std::vector<float>{},
-        std::vector<float>{}, // PIG_5
     };
 
     const std::array<std::vector<float>, (int)PoseModel::Size> DISTANCE_SIGMA{
@@ -1439,7 +1418,6 @@ const std::map<unsigned int, std::string> PIG_5_PARTS {
         std::vector<float>{},        std::vector<float>{},        std::vector<float>{},        std::vector<float>{},
         // COCO + MPII + Foot + Hands + Face
         std::vector<float>{},        std::vector<float>{},        std::vector<float>{},        std::vector<float>{},        std::vector<float>{},        std::vector<float>{},        std::vector<float>{},
-        std::vector<float>{}, // PIG_5    
     };
 
 
