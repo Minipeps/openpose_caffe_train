@@ -1126,9 +1126,10 @@ const std::map<unsigned int, std::string> PIG_5_PARTS {
         },
         std::vector<int>{               // PIG_5
             // Tail     Neck    Head
-               4,      /* 0, */     1,3,2 },
+            //   4,       0,     1,3,2 },
             // // Body     Head
             // 4,0,         0,1, 0,2, 0,3 },
+            0, 0, 0, 0},
     };
 
     const std::array<std::vector<int>, NUMBER_MODELS> LABEL_MAP_B{
@@ -1219,9 +1220,10 @@ const std::map<unsigned int, std::string> PIG_5_PARTS {
         },
         std::vector<int>{               // PIG_5
             // Tail     Neck    Head
-               4,       0,      1,3,2 },
+            //   4,       0,      1,3,2 },
             // // Body     Head
             // 4,0,         0,1, 0,2, 0,3 },
+            1, 2, 3, 4},
     };
 
     const auto rat = 5.75f/7.f;
