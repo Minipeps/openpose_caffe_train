@@ -621,6 +621,7 @@ cv::Mat readMaskMiss(const PoseCategory poseCategory, const PoseModel poseModel,
 {
     // Read mask miss (LMDB channel 2)
     const cv::Mat maskMiss = (poseCategory == PoseCategory::COCO || poseCategory == PoseCategory::CAR//CAR_22, no CAR_12
+        || poseCategory == PoseCategory::PIG
         || poseCategory == PoseCategory::MPII || poseCategory == PoseCategory::PT || poseCategory == PoseCategory::HAND
         || readMask
         // COCO & Car
@@ -1570,10 +1571,10 @@ void OPDataTransformer<Dtype>::generateDataAndLabel(Dtype* transformedData, Dtyp
                      distanceAverage, sigmaAverage, distanceAverageNew, distanceSigmaNew, distanceCounterNew);
     VLOG(2) << "  AddGaussian+CreateLabel: " << timer1.MicroSeconds()*1e-3 << " ms";
 
-    // // Debugging - Visualize - Write on disk
-    // visualize(
-    //     transformedLabel, mPoseModel, mPoseCategory, metaData, imageAugmented, stride, mModelString,
-    //     param_.add_distance());
+    // Debugging - Visualize - Write on disk
+    visualize(
+        transformedLabel, mPoseModel, mPoseCategory, metaData, imageAugmented, stride, mModelString,
+        param_.add_distance());
 }
 
 float getNorm(const cv::Point2f& pointA, const cv::Point2f& pointB)

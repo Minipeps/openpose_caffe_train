@@ -444,11 +444,11 @@ const std::map<unsigned int, std::string> CAR_22_PARTS {
 };
 const std::map<unsigned int, std::string> PIG_5_PARTS {
     {0, "Neck"},
-    {1, "R Ear"},
-    {2, "L Ear"},
+    {1, "L Ear"},
+    {2, "R Ear"},
     {3, "Nose"},
     {4, "Tail"},
-    {5, "Background"},
+    //{5, "Background"},
 };
     // Auxiliary functions
     const auto NUMBER_MODELS = 16; // How many are the same
